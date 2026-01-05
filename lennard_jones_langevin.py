@@ -89,29 +89,57 @@ def langevin_integrator(pos, vel, forces, dt, temp, friction, box):
 # --- C. CALCULO DE PARAMETROS DE ORDEN ---
 
 def hexatic_order(pos, box):
-    # Calcula psi_6 local y promedia
+    """
+    Calcula orden hexatico |psi_6| correctamente (KTHNY).
+    psi_6(i) = (1/N_i) * sum_j exp(6i * theta_ij)
+    Retorna promedio de |psi_6(i)| sobre todas las particulas.
+    """
     N = len(pos)
-    psi6_total = 0.0 + 0.0j
-    cutoff_sq = 1.5**2 # Primera capa de vecinos
+    cutoff_sq = 1.8**2  # Ajustado para primera capa de vecinos en LJ
+
+    psi6_magnitudes = []
 
     for i in range(N):
         neighbors = 0
         psi6_local = 0.0 + 0.0j
         for j in range(N):
-            if i == j: continue
+            if i == j:
+                continue
             delta = pos[j] - pos[i]
-            delta = delta - box * np.round(delta / box)
+            delta = delta - box * np.round(delta / box)  # MIC
             r2 = np.dot(delta, delta)
 
-            if r2 < cutoff_sq:
+            if r2 < cutoff_sq and r2 > 0.5**2:  # Evitar auto-vecinos
                 theta = np.arctan2(delta[1], delta[0])
                 psi6_local += np.exp(6j * theta)
                 neighbors += 1
 
         if neighbors > 0:
-            psi6_total += psi6_local / neighbors
+            # Promedio LOCAL del orden hexatico
+            psi6_local /= neighbors
+            psi6_magnitudes.append(np.abs(psi6_local))
 
-    return np.abs(psi6_total) / N
+    # Promedio de MAGNITUDES (no de numeros complejos)
+    return np.mean(psi6_magnitudes) if psi6_magnitudes else 0.0
+
+
+def compute_periodic_distance_matrix(pos, box):
+    """
+    Calcula matriz de distancias con condiciones de frontera periodicas.
+    Necesario para TDA correcto en sistemas con PBC.
+    """
+    N = len(pos)
+    dist_matrix = np.zeros((N, N))
+
+    for i in range(N):
+        for j in range(i + 1, N):
+            delta = pos[i] - pos[j]
+            delta = delta - box * np.round(delta / box)  # MIC
+            d = np.sqrt(np.dot(delta, delta))
+            dist_matrix[i, j] = d
+            dist_matrix[j, i] = d
+
+    return dist_matrix
 
 # --- D. SIMULACION PRINCIPAL ---
 
@@ -159,9 +187,10 @@ for step in range(STEPS):
         # 1. Orden Hexatico (Fisica estandar)
         psi6 = hexatic_order(positions, BOX_SIZE)
 
-        # 2. Entropia Topologica (Nuestra prediccion)
-        # H1 persistence
-        diagrams = ripser(positions, maxdim=1)['dgms']
+        # 2. Entropia Topologica con PBC (matriz de distancias periodicas)
+        # Usar distance_matrix=True para respetar topologia toroidal
+        dist_matrix = compute_periodic_distance_matrix(positions, BOX_SIZE)
+        diagrams = ripser(dist_matrix, maxdim=1, distance_matrix=True)['dgms']
         if len(diagrams[1]) > 0:
             lifetimes = diagrams[1][:, 1] - diagrams[1][:, 0]
             lifetimes = lifetimes[np.isfinite(lifetimes)]
@@ -216,15 +245,19 @@ else:
     crystal_step = STEPS
     crystal_temp = T_END
 
-print(f"Topological entropy peak: Step {topo_peak_step}, T = {topo_peak_temp:.3f}")
-print(f"Crystal transition (psi6 > 0.5): Step {crystal_step}, T = {crystal_temp:.3f}")
-print(f"\nPrecursor gap: {crystal_step - topo_peak_step} steps")
+print(f"S_H1 maximum: Step {topo_peak_step}, T = {topo_peak_temp:.3f}")
+print(f"  (Note: Early peak may be equilibration transient)")
+print(f"Crystal transition (|psi6| > 0.5): Step {crystal_step}, T = {crystal_temp:.3f}")
 
-if topo_peak_step < crystal_step:
-    print("\n*** PREDICTION CONFIRMED ***")
-    print("Topological structure changes BEFORE crystallization!")
+if crystal_step >= STEPS:
+    print("\n  WARNING: System did not crystallize during simulation window.")
+    print("  Cannot confirm precursor hypothesis without crystal transition.")
+elif topo_peak_step < 100:
+    print(f"\n  WARNING: S_H1 peak at step {topo_peak_step} likely equilibration transient.")
+    print("  Need longer burn-in or different analysis window.")
 else:
-    print("\nPrediction requires further analysis.")
+    print(f"\nTemporal gap: {crystal_step - topo_peak_step} steps")
+    print("  (Requires statistical validation across multiple runs)")
 
 # --- F. VISUALIZACION ---
 
@@ -241,42 +274,50 @@ ax1b.set_ylabel('Crystal Order ($|\psi_6|$)', color='k')
 ax1b.axhline(0.5, color='gray', linestyle='--', alpha=0.7, label='Crystal threshold')
 ax1.set_title('THERMODYNAMICS vs PHYSICAL ORDER', fontweight='bold', fontsize=12)
 
-# Marcar transiciones
-ax1.axvline(topo_peak_step, color='blue', linestyle=':', alpha=0.7, label=f'Topo peak @ {topo_peak_step}')
-ax1.axvline(crystal_step, color='green', linestyle=':', alpha=0.7, label=f'Crystal @ {crystal_step}')
-ax1.legend(loc='upper right')
+# Marcar transiciones con etiquetas correctas
+# Nota: El pico temprano es transitorio de equilibracion, no necesariamente precursor
+ax1.axvline(topo_peak_step, color='blue', linestyle=':', alpha=0.7,
+            label=f'S_H1 max @ {topo_peak_step} (equilibration?)')
+if crystal_step < STEPS:
+    ax1.axvline(crystal_step, color='green', linestyle=':', alpha=0.7,
+                label=f'|ψ₆|>0.5 @ {crystal_step}')
+ax1.legend(loc='upper right', fontsize=8)
 
 # Panel 2: La Prediccion Topologica
 ax2.plot(times, topo_entropy, 'b-', linewidth=2, label='Topological Entropy ($S_{H1}$)')
 ax2.fill_between(times, 0, topo_entropy, alpha=0.3, color='blue')
-ax2.set_ylabel('Persistence Entropy', color='b', fontweight='bold')
+ax2.set_ylabel('Persistence Entropy (PBC)', color='b', fontweight='bold')
 ax2.set_xlabel('Simulation Step')
 ax2.grid(True, alpha=0.3)
-ax2.set_title('TOPOLOGICAL INFORMATION (H1 Persistence)', fontweight='bold', fontsize=12)
+ax2.set_title('TOPOLOGICAL INFORMATION (H1 Persistence with PBC)', fontweight='bold', fontsize=12)
 
 ax2.axvline(topo_peak_step, color='blue', linestyle=':', alpha=0.7)
-ax2.axvline(crystal_step, color='green', linestyle=':', alpha=0.7)
+if crystal_step < STEPS:
+    ax2.axvline(crystal_step, color='green', linestyle=':', alpha=0.7)
 
-# Anotar la region critica
-if topo_peak_step < crystal_step:
-    ax2.axvspan(topo_peak_step, crystal_step, alpha=0.2, color='yellow',
-                label='PRECURSOR REGION')
-    ax2.legend()
+# NO sombrear "PRECURSOR REGION" sin evidencia robusta
+# Solo anotar si hay cambio significativo en la serie (no transitorio inicial)
+ax2.legend()
 
 plt.tight_layout()
 plt.savefig(f'{OUTPUT_DIR}/FIG1_topological_vs_thermodynamic.png', dpi=150)
 print(f"\nSaved: {OUTPUT_DIR}/FIG1_topological_vs_thermodynamic.png")
 plt.close()
 
-# --- G. DIAGRAMAS DE PERSISTENCIA ---
+# --- G. DIAGRAMAS DE PERSISTENCIA (con PBC) ---
 fig2, axes = plt.subplots(1, 3, figsize=(15, 5))
 
-titles = ['Initial (Gas)', 'Middle (Transition)', 'Final (Crystal)']
+# Etiquetas correctas segun estado real
+final_psi6 = psi6_vals[-1] if psi6_vals else 0
+final_state = 'Crystal' if final_psi6 > 0.5 else ('Liquid/Glass' if final_psi6 > 0.3 else 'Disordered')
+titles = ['Initial (Lattice)', 'Middle', f'Final ({final_state})']
 keys = ['initial', 'middle', 'final']
 
 for ax, key, title in zip(axes, keys, titles):
     if key in configs_to_save:
-        diagrams = ripser(configs_to_save[key], maxdim=1)['dgms']
+        # Usar matriz de distancias periodicas para TDA
+        dist_matrix = compute_periodic_distance_matrix(configs_to_save[key], BOX_SIZE)
+        diagrams = ripser(dist_matrix, maxdim=1, distance_matrix=True)['dgms']
         plot_diagrams(diagrams, ax=ax, show=False)
         ax.set_title(title, fontweight='bold')
 
@@ -288,14 +329,30 @@ plt.close()
 # --- H. CONFIGURACIONES ESPACIALES ---
 fig3, axes = plt.subplots(1, 3, figsize=(15, 5))
 
-for ax, key, title in zip(axes, keys, titles):
+# Calcular psi6 para cada configuracion y etiquetar correctamente
+config_titles = []
+for key in keys:
+    if key in configs_to_save:
+        psi6_config = hexatic_order(configs_to_save[key], BOX_SIZE)
+        if key == 'initial':
+            label = f'Initial (Lattice, |ψ₆|={psi6_config:.2f})'
+        elif key == 'middle':
+            label = f'Middle (|ψ₆|={psi6_config:.2f})'
+        else:
+            state = 'Crystal' if psi6_config > 0.5 else 'Disordered'
+            label = f'Final ({state}, |ψ₆|={psi6_config:.2f})'
+        config_titles.append(label)
+    else:
+        config_titles.append('')
+
+for ax, key, title in zip(axes, keys, config_titles):
     if key in configs_to_save:
         pos = configs_to_save[key]
         ax.scatter(pos[:, 0], pos[:, 1], s=30, alpha=0.7, c='blue', edgecolors='black')
         ax.set_xlim(0, BOX_SIZE)
         ax.set_ylim(0, BOX_SIZE)
         ax.set_aspect('equal')
-        ax.set_title(title, fontweight='bold')
+        ax.set_title(title, fontweight='bold', fontsize=10)
         ax.set_xlabel('x')
         ax.set_ylabel('y')
 
@@ -306,29 +363,29 @@ plt.close()
 
 # --- I. RESUMEN ---
 print("\n" + "=" * 70)
-print("SUMMARY FOR PAPER")
+print("FACTUAL SUMMARY")
 print("=" * 70)
 print(f"""
-Topological Transition:
+S_H1 Maximum:
   - Step: {topo_peak_step}
   - Temperature: {topo_peak_temp:.4f}
   - H1 entropy: {topo_entropy[topo_peak_idx]:.4f}
+  - Status: {'Likely equilibration transient' if topo_peak_step < 100 else 'Needs validation'}
 
-Thermodynamic Transition:
+Thermodynamic Transition (|psi6| > 0.5):
   - Step: {crystal_step}
   - Temperature: {crystal_temp:.4f}
   - Order parameter: {psi6_vals[crystal_idx]:.4f if len(crystal_indices) > 0 else 'N/A (no crystallization)'}
 
-PRECURSOR GAP: {crystal_step - topo_peak_step} steps
-Temperature difference: {crystal_temp - topo_peak_temp:.4f}
+OBSERVATIONS:
+- S_H1 shows initial transient and then stabilizes
+- |psi6| {'crosses threshold at step ' + str(crystal_step) if len(crystal_indices) > 0 else 'does not reach crystal threshold'}
 
-ONTOLOGICAL INTERPRETATION:
-The topological entropy peak marks the "activation of latent degrees"
-where the system's information structure reorganizes BEFORE the
-macroscopic crystalline order emerges.
-
-This validates the core prediction:
-  TOPOLOGY (software) changes before THERMODYNAMICS (hardware)
+NOTES FOR VALIDATION:
+- Need multiple runs (30-100) with different seeds for statistical analysis
+- Need null controls (constant T, randomized positions)
+- Need to separate burn-in from actual dynamics
+- PBC distance matrix now used for TDA (corrected)
 """)
 
 print("\nFiles saved to:", OUTPUT_DIR)

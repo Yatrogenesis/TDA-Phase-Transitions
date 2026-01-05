@@ -2,23 +2,32 @@
 
 ## Overview
 
-Experimental validation of the Ontological Framework for Topological Phase Transitions.
+Experimental investigation of Topological Data Analysis (TDA) applied to phase transitions in Lennard-Jones 2D systems.
 
-**Core Prediction**: Information topology (the "software" of a system) changes BEFORE thermodynamic observables (the "hardware").
+**Hypothesis Under Test**: Information topology (H1 persistence entropy) may show precursor signals before thermodynamic phase transitions.
 
-## Key Results
+**Status**: Methodology refined, statistical validation pending.
 
-### Experiment 1: Lennard-Jones 2D Gas (Velocity Rescaling)
-- **Topological transition**: Step 115, T = 1.438
-- **Thermodynamic transition**: Step 275, T = 1.307
-- **Precursor gap**: 160 steps
-- **Result**: CONFIRMED
+## Methodology Evolution
 
-### Experiment 2: Lennard-Jones 2D Gas (Langevin Dynamics)
-- **Topological transition**: Step 100, T = 2.004
-- **Thermodynamic transition**: Not reached (glass formation)
-- **Precursor gap**: >1900 steps
-- **Result**: CONFIRMED
+### V1-V5: Initial Attempts (DEPRECATED)
+- Issues identified: PBC not respected in TDA, lattice initialization confused with gas, burn-in transient misinterpreted as signal
+
+### V6: Rigorous Protocol (CURRENT)
+- PBC distance matrix for TDA
+- Random initialization + proper burn-in
+- MSD tracking for glass/crystal distinction
+- Factual observations only, no overclaiming
+
+## Key Observations (V6)
+
+### Experiment: Lennard-Jones 2D Quench
+- **System**: N=100, ρ=0.85
+- **Protocol**: 500 step burn-in at T=2.0, then quench to T=0.1
+- **Phase reached**: LIQUID (|ψ₆| ≈ 0.38, MSD diffusive)
+- **S_H1 behavior**: Moderate variation (std=0.107), max at step 760
+
+**Note**: System did not crystallize in this run. Cannot confirm precursor hypothesis without actual phase transition.
 
 ## Theoretical Framework
 

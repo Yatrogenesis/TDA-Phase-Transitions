@@ -103,16 +103,30 @@ def compute_msd(pos_history):
     msd = np.mean(np.sum((current - initial)**2, axis=1))
     return msd
 
-def compute_topological_entropy(positions, maxdim=1):
+def compute_periodic_distance_matrix(pos, box_size):
+    """Compute distance matrix with periodic boundary conditions."""
+    N = len(pos)
+    dist_matrix = np.zeros((N, N))
+    for i in range(N):
+        for j in range(i + 1, N):
+            delta = pos[i] - pos[j]
+            delta = delta - box_size * np.round(delta / box_size)
+            d = np.sqrt(np.dot(delta, delta))
+            dist_matrix[i, j] = d
+            dist_matrix[j, i] = d
+    return dist_matrix
+
+
+def compute_topological_entropy(positions, box_size, maxdim=1):
     """
-    Compute Persistent Homology and Topological Entropy.
+    Compute Persistent Homology and Topological Entropy with PBC.
 
     The key metric: entropy over H1 (1-cycles/loops) persistence.
-    High entropy = many competing topological structures (critical regime)
-    Low entropy = either no structure (gas) or single dominant structure (crystal)
+    Uses periodic distance matrix to respect toroidal topology.
     """
     try:
-        diagrams = ripser(positions, maxdim=maxdim)['dgms']
+        dist_matrix = compute_periodic_distance_matrix(positions, box_size)
+        diagrams = ripser(dist_matrix, maxdim=maxdim, distance_matrix=True)['dgms']
 
         # H0 entropy (connected components)
         h0_entropy = 0.0
