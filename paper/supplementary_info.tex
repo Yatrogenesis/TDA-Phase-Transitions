@@ -145,6 +145,82 @@ For the 22 trials with detected precursors:
 
 The high variance reflects the stochastic nature of the nucleation process and the inherent fluctuations in finite-size systems.
 
+\section{Finite-Size Validation: $N=400$}
+
+To verify that the observed precursor phenomenon is not an artifact of finite-size effects, we performed additional simulations with $N=400$ particles (10 independent trials). The larger system size ($L = 23.90\sigma$ vs $12.14\sigma$ for $N=144$) reduces relative thermal fluctuations by a factor of $\sqrt{400/144} \approx 1.67$.
+
+\subsection{$N=400$ Parameters}
+
+\begin{table}[h]
+\centering
+\caption{Parameters for $N=400$ validation.}
+\label{tab:n400params}
+\begin{tabular}{lll}
+\toprule
+\textbf{Parameter} & \textbf{Value} & \textbf{Change from $N=144$} \\
+\midrule
+$N$ & 400 & $\times 2.78$ \\
+$L$ & 23.90$\sigma$ & $\times 1.97$ \\
+Trials & 10 & (validation set) \\
+All other parameters & unchanged & --- \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{$N=400$ Individual Trial Results}
+
+\begin{table}[h]
+\centering
+\caption{Individual trial results for $N=400$ validation.}
+\label{tab:n400trials}
+\begin{tabular}{ccccccc}
+\toprule
+\textbf{Trial} & \textbf{Seed} & \textbf{$|\psi_6|_{final}$} & \textbf{$t_{phys}$} & \textbf{$t_{topo}$} & \textbf{Gap} & \textbf{Precursor?} \\
+\midrule
+1 & 4000 & 0.612 & 3175 & 1725 & 1450 & Yes \\
+2 & 4001 & 0.624 & 3400 & 1150 & 2250 & Yes \\
+3 & 4002 & 0.654 & 3025 & 950 & 2075 & Yes \\
+4 & 4003 & 0.612 & 3275 & 3375 & -100 & No \\
+5 & 4004 & 0.605 & 3350 & 1175 & 2175 & Yes \\
+6 & 4005 & 0.624 & 3125 & 1200 & 1925 & Yes \\
+7 & 4006 & 0.628 & 2975 & 1600 & 1375 & Yes \\
+8 & 4007 & 0.615 & 3450 & 3450 & 0 & No \\
+9 & 4008 & 0.652 & 3225 & 950 & 2275 & Yes \\
+10 & 4009 & 0.630 & 3100 & 2675 & 425 & Yes \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{$N=400$ Statistical Summary}
+
+\begin{itemize}
+    \item Crystallization rate: 10/10 (100\%)
+    \item Precursor detection rate: 8/10 (80.0\%)
+    \item Mean gap: 1385.0 steps
+    \item Standard deviation: 893.4 steps
+    \item Coefficient of variation ($\sigma/\mu$): 0.65
+\end{itemize}
+
+\subsection{Finite-Size Scaling Comparison}
+
+\begin{table}[h]
+\centering
+\caption{Comparison of results between $N=144$ and $N=400$.}
+\label{tab:comparison}
+\begin{tabular}{lccc}
+\toprule
+\textbf{Metric} & \textbf{$N=144$} & \textbf{$N=400$} & \textbf{Trend} \\
+\midrule
+Precursor rate & 73.3\% & 80.0\% & $\uparrow$ improved \\
+Mean gap (steps) & 750.8 & 1385.0 & $\uparrow$ increased \\
+Std. deviation & 1041.3 & 893.4 & $\downarrow$ reduced \\
+Coeff. of variation & 1.39 & 0.65 & $\downarrow$ improved \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The improvement in both precursor rate and signal-to-noise ratio with increasing system size strongly supports the physical reality of the topological precedence phenomenon. The precursor signal is not a finite-size artifact; rather, it becomes \textit{more pronounced} as thermal fluctuations are reduced.
+
 \section{Null Control Results}
 
 Ten null control trials were conducted at constant temperature ($T = 2.0$) to validate that the observed crystallization is a genuine thermodynamic response to cooling rather than a density artifact.
@@ -183,9 +259,11 @@ All simulation code, analysis scripts, and raw data are available at:
 
 The repository includes:
 \begin{itemize}
-    \item \texttt{lennard\_jones\_v9\_sensitivity.py}: Main simulation code
+    \item \texttt{lennard\_jones\_v9\_sensitivity.py}: Main simulation code ($N=144$)
+    \item \texttt{lennard\_jones\_N400.py}: Finite-size validation script ($N=400$)
     \item \texttt{generate\_publication\_figures.py}: Figure generation scripts
-    \item \texttt{results/}: Raw JSON data files
+    \item \texttt{results/}: Raw JSON data files ($N=144$)
+    \item \texttt{results\_N400/}: Validation results ($N=400$)
 \end{itemize}
 
 \section{Figures (High Resolution)}
