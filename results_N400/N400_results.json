@@ -1,0 +1,33 @@
+{
+  "parameters": {
+    "N_PARTICLES": 400,
+    "DENSITY": 0.7,
+    "N_TRIALS": 10
+  },
+  "results": {
+    "n_crystal": 10,
+    "cusum_method": {
+      "n_detected": 10,
+      "n_precursor": 8,
+      "precursor_rate": 0.8,
+      "mean_gap": 1385.0,
+      "std_gap": 893.3924109818709,
+      "gaps": [
+        1450,
+        2250,
+        2075,
+        -100,
+        2175,
+        1925,
+        1375,
+        0,
+        2275,
+        425
+      ]
+    }
+  },
+  "comparison_n144": {
+    "n144_precursor_rate": 0.733,
+    "n144_mean_gap": 750.8
+  }
+}
