@@ -1,0 +1,7 @@
+# Rust build artifacts
+lj_tda_rust/target/
+
+# Python
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
