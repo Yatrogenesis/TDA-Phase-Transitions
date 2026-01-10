@@ -221,6 +221,90 @@ Coeff. of variation & 1.39 & 0.65 & $\downarrow$ improved \\
 
 The improvement in both precursor rate and signal-to-noise ratio with increasing system size strongly supports the physical reality of the topological precedence phenomenon. The precursor signal is not a finite-size artifact; rather, it becomes \textit{more pronounced} as thermal fluctuations are reduced.
 
+\section{Extended Finite-Size Validation: $N=900$ and $N=1600$}
+
+To further strengthen finite-size scaling conclusions, additional validations were performed with $N=900$ (5 trials) and $N=1600$ (3 trials) using a high-performance Rust implementation with Rayon parallelism.
+
+\subsection{$N=900$ Results}
+
+\begin{table}[h]
+\centering
+\caption{Individual trial results for $N=900$ validation.}
+\label{tab:n900trials}
+\begin{tabular}{ccccccc}
+\toprule
+\textbf{Trial} & \textbf{Seed} & \textbf{$|\psi_6|_{final}$} & \textbf{$t_{phys}$} & \textbf{$t_{topo}$} & \textbf{Gap} & \textbf{Precursor?} \\
+\midrule
+1 & 9000 & 0.640 & 3725 & 1650 & 2075 & Yes \\
+2 & 9001 & 0.648 & 3650 & 2975 & 675 & Yes \\
+3 & 9002 & 0.622 & 3875 & 1825 & 2050 & Yes \\
+4 & 9003 & 0.619 & 3550 & 2375 & 1175 & Yes \\
+5 & 9004 & 0.613 & 3625 & 1675 & 1950 & Yes \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{$N=900$ Summary:}
+\begin{itemize}
+    \item Crystallization rate: 5/5 (100\%)
+    \item Precursor detection rate: 5/5 (100.0\%)
+    \item Mean gap: 1585.0 steps
+    \item Standard deviation: 563.2 steps
+\end{itemize}
+
+\subsection{$N=1600$ Results}
+
+\begin{table}[h]
+\centering
+\caption{Individual trial results for $N=1600$ validation.}
+\label{tab:n1600trials}
+\begin{tabular}{ccccccc}
+\toprule
+\textbf{Trial} & \textbf{Seed} & \textbf{$|\psi_6|_{final}$} & \textbf{$t_{phys}$} & \textbf{$t_{topo}$} & \textbf{Gap} & \textbf{Precursor?} \\
+\midrule
+1 & 16000 & 0.609 & 3550 & 2775 & 775 & Yes \\
+2 & 16001 & 0.637 & 3775 & 1725 & 2050 & Yes \\
+3 & 16002 & 0.634 & 3900 & 1550 & 2350 & Yes \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{$N=1600$ Summary:}
+\begin{itemize}
+    \item Crystallization rate: 3/3 (100\%)
+    \item Precursor detection rate: 3/3 (100.0\%)
+    \item Mean gap: 1725.0 steps
+    \item Standard deviation: 682.8 steps
+\end{itemize}
+
+\subsection{Complete Finite-Size Scaling}
+
+\begin{table}[h]
+\centering
+\caption{Complete finite-size scaling across all system sizes.}
+\label{tab:fullcomparison}
+\begin{tabular}{lcccc}
+\toprule
+\textbf{$N$} & \textbf{Precursor Rate} & \textbf{Mean Gap} & \textbf{Std. Dev.} & \textbf{CV ($\sigma/\mu$)} \\
+\midrule
+144 & 73.3\% & 750.8 & 1041.3 & 1.39 \\
+400 & 80.0\% & 1385.0 & 893.4 & 0.65 \\
+900 & 100.0\% & 1585.0 & 563.2 & 0.36 \\
+1600 & 100.0\% & 1725.0 & 682.8 & 0.40 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Key observations:}
+\begin{enumerate}
+    \item Precursor rate monotonically increases with system size: 73.3\% $\rightarrow$ 80.0\% $\rightarrow$ 100\% $\rightarrow$ 100\%
+    \item Mean gap also increases, indicating earlier precursor detection in larger systems
+    \item Coefficient of variation decreases substantially, confirming reduced stochastic noise
+    \item 100\% precursor rate at $N \geq 900$ demonstrates that the phenomenon is genuine and not a finite-size artifact
+\end{enumerate}
+
+These results strongly validate the TDA-CUSUM methodology and confirm that topological precursors become \textit{more reliable} as system size increases, consistent with the expected $\sim 1/\sqrt{N}$ reduction in thermal fluctuations.
+
 \section{Null Control Results}
 
 Ten null control trials were conducted at constant temperature ($T = 2.0$) to validate that the observed crystallization is a genuine thermodynamic response to cooling rather than a density artifact.
@@ -261,9 +345,14 @@ The repository includes:
 \begin{itemize}
     \item \texttt{lennard\_jones\_v9\_sensitivity.py}: Main simulation code ($N=144$)
     \item \texttt{lennard\_jones\_N400.py}: Finite-size validation script ($N=400$)
+    \item \texttt{lennard\_jones\_N900\_validation.py}: Validation script ($N=900$)
+    \item \texttt{lennard\_jones\_N1600\_validation.py}: Validation script ($N=1600$)
+    \item \texttt{lj\_tda\_rust/}: High-performance Rust implementation
     \item \texttt{generate\_publication\_figures.py}: Figure generation scripts
     \item \texttt{results/}: Raw JSON data files ($N=144$)
     \item \texttt{results\_N400/}: Validation results ($N=400$)
+    \item \texttt{results\_N900/}: Validation results ($N=900$)
+    \item \texttt{results\_N1600/}: Validation results ($N=1600$)
 \end{itemize}
 
 \section{Figures (High Resolution)}
