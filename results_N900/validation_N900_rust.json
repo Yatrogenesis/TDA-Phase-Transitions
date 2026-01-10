@@ -1,0 +1,61 @@
+{
+  "n_particles": 900,
+  "n_trials": 5,
+  "total_time_sec": 60.2029597,
+  "time_per_trial_sec": 12.04059194,
+  "n_crystal": 5,
+  "n_detected": 5,
+  "n_precursor": 5,
+  "precursor_rate": 1.0,
+  "mean_gap": 1585.0,
+  "std_gap": 563.1607230622533,
+  "gaps": [
+    2075,
+    675,
+    2050,
+    1175,
+    1950
+  ],
+  "trials": [
+    {
+      "seed": 9000,
+      "phase": "CRYSTAL",
+      "psi6_final": 0.6403375780055434,
+      "t_phys": 3725,
+      "t_topo": 1650,
+      "gap": 2075
+    },
+    {
+      "seed": 9001,
+      "phase": "CRYSTAL",
+      "psi6_final": 0.6477404700205043,
+      "t_phys": 3650,
+      "t_topo": 2975,
+      "gap": 675
+    },
+    {
+      "seed": 9002,
+      "phase": "CRYSTAL",
+      "psi6_final": 0.6220311829812719,
+      "t_phys": 3875,
+      "t_topo": 1825,
+      "gap": 2050
+    },
+    {
+      "seed": 9003,
+      "phase": "CRYSTAL",
+      "psi6_final": 0.6185828243703909,
+      "t_phys": 3550,
+      "t_topo": 2375,
+      "gap": 1175
+    },
+    {
+      "seed": 9004,
+      "phase": "CRYSTAL",
+      "psi6_final": 0.6133965007410414,
+      "t_phys": 3625,
+      "t_topo": 1675,
+      "gap": 1950
+    }
+  ]
+}
