@@ -1,0 +1,21 @@
+{
+  "source": "V9 CUSUM Analysis",
+  "n_trials": 30,
+  "n_crystal": 30,
+  "cusum_precursor_rate": 0.7333333333333333,
+  "cusum_mean_gap": 750.8333333333334,
+  "cusum_std_gap": 1041.3029364961742,
+  "derivative_precursor_rate": 0.6,
+  "figures_generated": [
+    "fig1_ensemble_dynamics",
+    "fig2_validation_gaps",
+    "fig3_mechanism"
+  ],
+  "formats": [
+    "pdf",
+    "eps",
+    "png",
+    "jpg"
+  ],
+  "dpi": 600
+}
