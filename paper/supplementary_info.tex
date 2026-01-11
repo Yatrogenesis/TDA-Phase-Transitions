@@ -349,19 +349,21 @@ A companion project extends the TDA-CUSUM methodology to more complex physical s
 
 \begin{table}[h]
 \centering
-\caption{Summary of complex systems studied in the companion project.}
+\caption{Summary of complex systems studied in the companion project. $Q_6$ values computed using Steinhardt's spherical harmonics formulation \cite{steinhardt1983}.}
 \label{tab:complex}
 \begin{tabular}{lcccc}
 \toprule
-\textbf{System} & \textbf{$N$} & \textbf{Transition} & \textbf{Success} & \textbf{Order} \\
+\textbf{System} & \textbf{$N$} & \textbf{Transition} & \textbf{Success} & \textbf{$Q_6$ (Steinhardt)} \\
 \midrule
-LJ 3D (pure) & 256 & Crystal & 100\% & $Q_6 = 0.95$ \\
-LJ 3D (pure) & 500 & Crystal & 100\% & $Q_6 = 0.95$ \\
-LJ Glass (KA) & 256 & Glass & 100\% & $Q_6 = 0.09$ \\
+LJ 3D (pure) & 256 & Crystal (FCC) & 100\% & 0.56 \\
+LJ 3D (pure) & 500 & Crystal (FCC) & 100\% & 0.56 \\
+LJ Glass (KA) & 256 & Glass & 100\% & 0.29 \\
 TIP4P Water & 64 & Liquid* & 0\% & $Q_4 = 0.19$ \\
 \bottomrule
 \end{tabular}
 \end{table}
+
+Reference values: FCC = 0.574, HCP = 0.485, Liquid/Glass = 0.28--0.35.
 
 *TIP4P remains liquid at nanosecond timescales (ice nucleation requires microseconds).
 
@@ -371,22 +373,22 @@ The Kob-Andersen binary mixture was studied across five quench rates to investig
 
 \begin{table}[h]
 \centering
-\caption{Variable quench rate results for Kob-Andersen mixture ($N=256$).}
+\caption{Variable quench rate results for Kob-Andersen mixture ($N=256$). Steinhardt $Q_6$ values confirm disordered structure at all rates.}
 \label{tab:quench}
 \begin{tabular}{lcccc}
 \toprule
 \textbf{Rate} & \textbf{Steps} & \textbf{Glass\%} & \textbf{$Q_6$} & \textbf{MSD} \\
 \midrule
-Instantaneous ($\sim10^{14}$ K/s) & 1 & 100\% & 0.096 & 1.06 \\
-Ultra-fast ($\sim10^{12}$ K/s) & 100 & 100\% & 0.084 & 0.22 \\
-Fast ($\sim10^{11}$ K/s) & 1000 & 100\% & 0.090 & 0.08 \\
-Moderate ($\sim10^{10}$ K/s) & 5000 & 100\% & 0.083 & 0.03 \\
-Slow ($\sim10^{9}$ K/s) & 20000 & 100\% & 0.086 & 0.01 \\
+Instantaneous ($\sim10^{14}$ K/s) & 1 & 100\% & 0.29 & 1.06 \\
+Ultra-fast ($\sim10^{12}$ K/s) & 100 & 100\% & 0.29 & 0.22 \\
+Fast ($\sim10^{11}$ K/s) & 1000 & 100\% & 0.29 & 0.08 \\
+Moderate ($\sim10^{10}$ K/s) & 5000 & 100\% & 0.29 & 0.03 \\
+Slow ($\sim10^{9}$ K/s) & 20000 & 100\% & 0.30 & 0.01 \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-The 100\% vitrification rate across all quench rates confirms that the Kob-Andersen system is an excellent glass-former due to size frustration. The decreasing MSD with slower quench indicates better structural relaxation.
+The 100\% vitrification rate across all quench rates confirms that the Kob-Andersen system is an excellent glass-former due to size frustration. The $Q_6 \approx 0.29$ is consistent with the expected liquid/glass range (0.28--0.35), confirming disordered structure. The decreasing MSD with slower quench indicates better structural relaxation.
 
 \subsection{Code Availability}
 

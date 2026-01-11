@@ -160,11 +160,11 @@ In conclusion, the system's topological structure does not behave merely as a pa
 
 The methodology developed here---TDA-CUSUM detection of topological precursors---opens several avenues for extension to more complex systems:
 
-\textbf{Three-dimensional systems.} Extension to 3D Lennard-Jones would enable analysis of both $H_1$ (loops) and $H_2$ (voids/cavities) homology groups. The richer topological structure may reveal additional precursor signatures, particularly through void coalescence dynamics during crystallization. Preliminary work with $N=256$ particles shows 100\% crystallization with $Q_6 \approx 0.95$ (FCC/HCP structure).
+\textbf{Three-dimensional systems.} Extension to 3D Lennard-Jones would enable analysis of both $H_1$ (loops) and $H_2$ (voids/cavities) homology groups. The richer topological structure may reveal additional precursor signatures, particularly through void coalescence dynamics during crystallization. Preliminary work with $N=256$ particles shows 100\% crystallization with Steinhardt $Q_6 \approx 0.56$, matching the expected FCC value of 0.574 \cite{steinhardt1983}.
 
 \textbf{Molecular systems.} Application to realistic water models (e.g., TIP4P/2005 with SHAKE constraints and Wolf electrostatics) would test whether hydrogen bond network topology exhibits similar precursor behavior during ice nucleation. The tetrahedral coordination of water suggests distinctive $H_1$ signatures compared to simple liquids. Initial simulations confirm that ice nucleation requires microsecond timescales, consistent with the rare-event nature of homogeneous nucleation.
 
-\textbf{Glass-forming systems.} The Kob-Andersen binary mixture (80\% A, 20\% B with size disparity) provides an ideal test system for vitrification. Preliminary studies across five quench rates ($10^9$--$10^{14}$ K/s equivalent) show 100\% vitrification with low $Q_6 \approx 0.09$ (disordered structure), confirming that size frustration effectively suppresses crystallization. The relationship between quench rate and glass relaxation (measured via MSD) suggests that TDA may distinguish well-relaxed from poorly-relaxed glasses.
+\textbf{Glass-forming systems.} The Kob-Andersen binary mixture (80\% A, 20\% B with size disparity) provides an ideal test system for vitrification. Preliminary studies across five quench rates ($10^9$--$10^{14}$ K/s equivalent) show 100\% vitrification with $Q_6 \approx 0.29$, consistent with the expected liquid/glass range of 0.28--0.35 \cite{steinhardt1983}. Size frustration effectively suppresses crystallization at all quench rates. The relationship between quench rate and glass relaxation (measured via MSD) suggests that TDA may distinguish well-relaxed from poorly-relaxed glasses.
 
 A companion project extending this methodology to these complex systems is available at \url{https://github.com/Yatrogenesis/TDA-Complex-Systems}.
 
@@ -229,6 +229,10 @@ F.~Hensel, M.~Moor, and B.~Rieck, Adv. Phys.: X \textbf{8}, 2202331 (2023). \hre
 % Ripser software
 \bibitem{tralie2018}
 C.~Tralie, N.~Saul, and R.~Bar-On, J. Open Source Softw. \textbf{3}, 925 (2018). \href{https://doi.org/10.21105/joss.00925}{DOI:10.21105/joss.00925}
+
+% Steinhardt Q6 order parameter
+\bibitem{steinhardt1983}
+P.~J.~Steinhardt, D.~R.~Nelson, and M.~Ronchetti, Phys. Rev. B \textbf{28}, 784 (1983). \href{https://doi.org/10.1103/PhysRevB.28.784}{DOI:10.1103/PhysRevB.28.784}
 
 \end{thebibliography}
 
