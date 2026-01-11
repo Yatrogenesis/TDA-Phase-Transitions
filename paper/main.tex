@@ -156,6 +156,18 @@ We propose that the phase transition can be usefully interpreted as an \textit{i
 
 In conclusion, the system's topological structure does not behave merely as a passive epiphenomenon. Results are consistent with a model of \textit{biased co-emergence}, where informational instability frequently anticipates matter reconfiguration, opening new avenues for early characterization of transitional regimes.
 
+\section{Future Work}
+
+The methodology developed here---TDA-CUSUM detection of topological precursors---opens several avenues for extension to more complex systems:
+
+\textbf{Three-dimensional systems.} Extension to 3D Lennard-Jones would enable analysis of both $H_1$ (loops) and $H_2$ (voids/cavities) homology groups. The richer topological structure may reveal additional precursor signatures, particularly through void coalescence dynamics during crystallization. Preliminary work with $N=256$ particles shows 100\% crystallization with $Q_6 \approx 0.95$ (FCC/HCP structure).
+
+\textbf{Molecular systems.} Application to realistic water models (e.g., TIP4P/2005 with SHAKE constraints and Wolf electrostatics) would test whether hydrogen bond network topology exhibits similar precursor behavior during ice nucleation. The tetrahedral coordination of water suggests distinctive $H_1$ signatures compared to simple liquids. Initial simulations confirm that ice nucleation requires microsecond timescales, consistent with the rare-event nature of homogeneous nucleation.
+
+\textbf{Glass-forming systems.} The Kob-Andersen binary mixture (80\% A, 20\% B with size disparity) provides an ideal test system for vitrification. Preliminary studies across five quench rates ($10^9$--$10^{14}$ K/s equivalent) show 100\% vitrification with low $Q_6 \approx 0.09$ (disordered structure), confirming that size frustration effectively suppresses crystallization. The relationship between quench rate and glass relaxation (measured via MSD) suggests that TDA may distinguish well-relaxed from poorly-relaxed glasses.
+
+A companion project extending this methodology to these complex systems is available at \url{https://github.com/Yatrogenesis/TDA-Complex-Systems}.
+
 \section*{Data Availability}
 
 The simulation code, analysis scripts, and raw data supporting this study are openly available at \url{https://github.com/Yatrogenesis/TDA-Phase-Transitions}. The repository includes:
