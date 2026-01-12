@@ -1,0 +1,259 @@
+{
+  "n_particles": 1600,
+  "n_trials": 27,
+  "total_time_sec": 1086.6201847,
+  "time_per_trial_sec": 40.245192025925924,
+  "n_crystal": 27,
+  "n_detected": 27,
+  "n_precursor": 27,
+  "precursor_rate": 1.0,
+  "mean_gap": 1787.962962962963,
+  "std_gap": 414.06802818086686,
+  "gaps": [
+    1325,
+    2150,
+    1250,
+    1700,
+    1825,
+    2125,
+    2300,
+    2050,
+    2000,
+    1550,
+    1125,
+    2250,
+    1400,
+    2150,
+    1775,
+    2275,
+    725,
+    1800,
+    2025,
+    1425,
+    2125,
+    2125,
+    1775,
+    1450,
+    1250,
+    2300,
+    2025
+  ],
+  "trials": [
+    {
+      "seed": 1600003,
+      "phase": "CRYSTAL",
+      "psi6_final": 0.6289575478939775,
+      "t_phys": 3625,
+      "t_topo": 2300,
+      "gap": 1325
+    },
+    {
+      "seed": 1600004,
+      "phase": "CRYSTAL",
+      "psi6_final": 0.635876421449847,
+      "t_phys": 3825,
+      "t_topo": 1675,
+      "gap": 2150
+    },
+    {
+      "seed": 1600005,
+      "phase": "CRYSTAL",
+      "psi6_final": 0.6414957308252408,
+      "t_phys": 3725,
+      "t_topo": 2475,
+      "gap": 1250
+    },
+    {
+      "seed": 1600006,
+      "phase": "CRYSTAL",
+      "psi6_final": 0.6400418726048959,
+      "t_phys": 3700,
+      "t_topo": 2000,
+      "gap": 1700
+    },
+    {
+      "seed": 1600007,
+      "phase": "CRYSTAL",
+      "psi6_final": 0.6185881303749685,
+      "t_phys": 3825,
+      "t_topo": 2000,
+      "gap": 1825
+    },
+    {
+      "seed": 1600008,
+      "phase": "CRYSTAL",
+      "psi6_final": 0.6117441778053049,
+      "t_phys": 3900,
+      "t_topo": 1775,
+      "gap": 2125
+    },
+    {
+      "seed": 1600009,
+      "phase": "CRYSTAL",
+      "psi6_final": 0.6095093667987569,
+      "t_phys": 3875,
+      "t_topo": 1575,
+      "gap": 2300
+    },
+    {
+      "seed": 1600010,
+      "phase": "CRYSTAL",
+      "psi6_final": 0.6288582587903779,
+      "t_phys": 3575,
+      "t_topo": 1525,
+      "gap": 2050
+    },
+    {
+      "seed": 1600011,
+      "phase": "CRYSTAL",
+      "psi6_final": 0.6309598413717604,
+      "t_phys": 3675,
+      "t_topo": 1675,
+      "gap": 2000
+    },
+    {
+      "seed": 1600012,
+      "phase": "CRYSTAL",
+      "psi6_final": 0.6317993958469607,
+      "t_phys": 3925,
+      "t_topo": 2375,
+      "gap": 1550
+    },
+    {
+      "seed": 1600013,
+      "phase": "CRYSTAL",
+      "psi6_final": 0.6163137711803585,
+      "t_phys": 3600,
+      "t_topo": 2475,
+      "gap": 1125
+    },
+    {
+      "seed": 1600014,
+      "phase": "CRYSTAL",
+      "psi6_final": 0.6228995122781251,
+      "t_phys": 3800,
+      "t_topo": 1550,
+      "gap": 2250
+    },
+    {
+      "seed": 1600015,
+      "phase": "CRYSTAL",
+      "psi6_final": 0.6227973359199508,
+      "t_phys": 3450,
+      "t_topo": 2050,
+      "gap": 1400
+    },
+    {
+      "seed": 1600016,
+      "phase": "CRYSTAL",
+      "psi6_final": 0.622967029656486,
+      "t_phys": 3900,
+      "t_topo": 1750,
+      "gap": 2150
+    },
+    {
+      "seed": 1600017,
+      "phase": "CRYSTAL",
+      "psi6_final": 0.6208666105025438,
+      "t_phys": 3800,
+      "t_topo": 2025,
+      "gap": 1775
+    },
+    {
+      "seed": 1600018,
+      "phase": "CRYSTAL",
+      "psi6_final": 0.6261580413617878,
+      "t_phys": 3975,
+      "t_topo": 1700,
+      "gap": 2275
+    },
+    {
+      "seed": 1600019,
+      "phase": "CRYSTAL",
+      "psi6_final": 0.6384558839134943,
+      "t_phys": 3825,
+      "t_topo": 3100,
+      "gap": 725
+    },
+    {
+      "seed": 1600020,
+      "phase": "CRYSTAL",
+      "psi6_final": 0.6291400321008352,
+      "t_phys": 3625,
+      "t_topo": 1825,
+      "gap": 1800
+    },
+    {
+      "seed": 1600021,
+      "phase": "CRYSTAL",
+      "psi6_final": 0.6146580655038769,
+      "t_phys": 3800,
+      "t_topo": 1775,
+      "gap": 2025
+    },
+    {
+      "seed": 1600022,
+      "phase": "CRYSTAL",
+      "psi6_final": 0.6366650493682108,
+      "t_phys": 3850,
+      "t_topo": 2425,
+      "gap": 1425
+    },
+    {
+      "seed": 1600023,
+      "phase": "CRYSTAL",
+      "psi6_final": 0.6234949964869195,
+      "t_phys": 3825,
+      "t_topo": 1700,
+      "gap": 2125
+    },
+    {
+      "seed": 1600024,
+      "phase": "CRYSTAL",
+      "psi6_final": 0.638039169269206,
+      "t_phys": 3800,
+      "t_topo": 1675,
+      "gap": 2125
+    },
+    {
+      "seed": 1600025,
+      "phase": "CRYSTAL",
+      "psi6_final": 0.6230448873961845,
+      "t_phys": 3700,
+      "t_topo": 1925,
+      "gap": 1775
+    },
+    {
+      "seed": 1600026,
+      "phase": "CRYSTAL",
+      "psi6_final": 0.642458714077873,
+      "t_phys": 3875,
+      "t_topo": 2425,
+      "gap": 1450
+    },
+    {
+      "seed": 1600027,
+      "phase": "CRYSTAL",
+      "psi6_final": 0.6226416447810258,
+      "t_phys": 3725,
+      "t_topo": 2475,
+      "gap": 1250
+    },
+    {
+      "seed": 1600028,
+      "phase": "CRYSTAL",
+      "psi6_final": 0.6274924230250274,
+      "t_phys": 4000,
+      "t_topo": 1700,
+      "gap": 2300
+    },
+    {
+      "seed": 1600029,
+      "phase": "CRYSTAL",
+      "psi6_final": 0.6184978858221987,
+      "t_phys": 3925,
+      "t_topo": 1900,
+      "gap": 2025
+    }
+  ]
+}

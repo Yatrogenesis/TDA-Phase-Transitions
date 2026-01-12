@@ -4,12 +4,11 @@
 //! Author: Francisco Molina Burgos
 //! Date: 2026-01-10
 
-use ndarray::{Array1, Array2, Axis};
+use ndarray::Array2;
 use rand::prelude::*;
 use rand_chacha::ChaCha8Rng;
 use rayon::prelude::*;
 use serde::{Deserialize, Serialize};
-use std::f64::consts::PI;
 use std::fs::File;
 use std::io::Write;
 use std::time::Instant;
@@ -438,17 +437,18 @@ fn run_trial(n_particles: usize, seed: u64) -> (TrialResult, Vec<f64>, Vec<f64>)
     (result, psi6_series, s_h1_series)
 }
 
-/// Run validation for given N
-fn run_validation(n_particles: usize, n_trials: usize) -> ValidationSummary {
+/// Run validation with custom seed range
+fn run_validation_custom(n_particles: usize, n_trials: usize, seed_start: u64) -> ValidationSummary {
     println!("\n{}", "=".repeat(70));
-    println!("RUST VALIDATION: N={}, {} trials", n_particles, n_trials);
+    println!("RUST VALIDATION: N={}, {} trials (seeds {}..{})",
+             n_particles, n_trials, seed_start, seed_start + n_trials as u64 - 1);
     println!("{}", "=".repeat(70));
 
     let total_start = Instant::now();
     let mut results = Vec::new();
 
     for i in 0..n_trials {
-        let seed = (n_particles as u64) * 10 + i as u64;
+        let seed = seed_start + i as u64;
         let trial_start = Instant::now();
         let (result, _, _) = run_trial(n_particles, seed);
         let elapsed = trial_start.elapsed().as_secs_f64();
@@ -525,39 +525,59 @@ fn run_validation(n_particles: usize, n_trials: usize) -> ValidationSummary {
 
 fn main() {
     println!("{}", "=".repeat(70));
-    println!("TDA-CUSUM RUST VALIDATION (Rayon parallel)");
+    println!("TDA-CUSUM EXTENDED VALIDATION - n=30 per system size");
+    println!("Additional trials to reach statistical significance");
     println!("{}", "=".repeat(70));
 
     // Create output directories
+    std::fs::create_dir_all("../results_N400").ok();
     std::fs::create_dir_all("../results_N900").ok();
     std::fs::create_dir_all("../results_N1600").ok();
 
-    // Run N=900
-    let res_900 = run_validation(900, 5);
+    // N=400: 20 additional trials (existing: 10, need 30 total)
+    // Seeds: 400020-400039 (avoid collision with any existing)
+    let res_400 = run_validation_custom(400, 20, 400020);
+    let json_400 = serde_json::to_string_pretty(&res_400).unwrap();
+    let mut file_400 = File::create("../results_N400/validation_N400_additional.json").unwrap();
+    file_400.write_all(json_400.as_bytes()).unwrap();
+
+    // N=900: 25 additional trials (existing: 5, need 30 total)
+    // Seeds: 900005-900029
+    let res_900 = run_validation_custom(900, 25, 900005);
     let json_900 = serde_json::to_string_pretty(&res_900).unwrap();
-    let mut file_900 = File::create("../results_N900/validation_N900_rust.json").unwrap();
+    let mut file_900 = File::create("../results_N900/validation_N900_additional.json").unwrap();
     file_900.write_all(json_900.as_bytes()).unwrap();
 
-    // Run N=1600
-    let res_1600 = run_validation(1600, 3);
+    // N=1600: 27 additional trials (existing: 3, need 30 total)
+    // Seeds: 1600003-1600029
+    let res_1600 = run_validation_custom(1600, 27, 1600003);
     let json_1600 = serde_json::to_string_pretty(&res_1600).unwrap();
-    let mut file_1600 = File::create("../results_N1600/validation_N1600_rust.json").unwrap();
+    let mut file_1600 = File::create("../results_N1600/validation_N1600_additional.json").unwrap();
     file_1600.write_all(json_1600.as_bytes()).unwrap();
 
     // Summary
     println!("\n{}", "=".repeat(70));
-    println!("RUST VALIDATION COMPLETE");
+    println!("EXTENDED VALIDATION COMPLETE");
     println!("{}", "=".repeat(70));
     println!(
-        "N=900:  {:.1}% precursor, {:.1} gap, {:.1}s/trial",
+        "N=400:  {:.1}% precursor ({}/{}), {:.1}s/trial",
+        res_400.precursor_rate * 100.0,
+        res_400.n_precursor,
+        res_400.n_detected,
+        res_400.time_per_trial_sec
+    );
+    println!(
+        "N=900:  {:.1}% precursor ({}/{}), {:.1}s/trial",
         res_900.precursor_rate * 100.0,
-        res_900.mean_gap,
+        res_900.n_precursor,
+        res_900.n_detected,
         res_900.time_per_trial_sec
     );
     println!(
-        "N=1600: {:.1}% precursor, {:.1} gap, {:.1}s/trial",
+        "N=1600: {:.1}% precursor ({}/{}), {:.1}s/trial",
         res_1600.precursor_rate * 100.0,
-        res_1600.mean_gap,
+        res_1600.n_precursor,
+        res_1600.n_detected,
         res_1600.time_per_trial_sec
     );
     println!("{}", "=".repeat(70));
