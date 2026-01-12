@@ -7,6 +7,10 @@
 \usepackage{hyperref}
 \usepackage{xcolor}
 \usepackage{float}
+\usepackage{microtype} % Improves line breaking and reduces underfull hbox warnings
+\usepackage{url}
+\urlstyle{same} % Use same font for URLs
+\Urlmuskip=0mu plus 1mu % Allow flexible spacing in URLs
 
 \begin{document}
 
@@ -135,16 +139,17 @@ Our primary study employs $N=144$ particles, a system size chosen to balance com
 
 \begin{table}[h]
 \centering
-\caption{Finite-size scaling of precursor detection (30 trials per system size).}
+\caption{Finite-size scaling of precursor detection (30 trials per size).}
 \label{tab:finitesize}
-\begin{tabular}{lccccc}
+\small
+\begin{tabular}{@{}lccccc@{}}
 \hline
-$N$ & Trials & Precursor Rate & 95\% CI & Mean Gap (steps) & $\sigma$/Mean \\
+$N$ & Trials & Rate & 95\% CI & Gap (steps) & CV \\
 \hline
-144 & 30 & 73.3\% & [54.1, 87.7]\% & 750.8 $\pm$ 1041.3 & 1.39 \\
-400 & 30 & 93.3\% & [77.9, 99.2]\% & 1482.5 $\pm$ 612.4 & 0.41 \\
-900 & 30 & 100\% & [88.4, 100]\% & 1629.2 $\pm$ 398.5 & 0.24 \\
-1600 & 30 & 100\% & [88.4, 100]\% & 1781.7 $\pm$ 421.3 & 0.24 \\
+144 & 30 & 73.3\% & [54.1, 87.7]\% & 750.8$\pm$1041.3 & 1.39 \\
+400 & 30 & 93.3\% & [77.9, 99.2]\% & 1482.5$\pm$612.4 & 0.41 \\
+900 & 30 & 100\% & [88.4, 100]\% & 1629.2$\pm$398.5 & 0.24 \\
+1600 & 30 & 100\% & [88.4, 100]\% & 1781.7$\pm$421.3 & 0.24 \\
 \hline
 \end{tabular}
 \end{table}
@@ -186,6 +191,7 @@ The author acknowledges computational assistance from Claude (Anthropic) in simu
 \end{acknowledgments}
 
 \begin{thebibliography}{99}
+\raggedright % Allows more flexible line breaking in bibliography
 
 % Foundational TDA - keep these classics
 \bibitem{edelsbrunner2010}
