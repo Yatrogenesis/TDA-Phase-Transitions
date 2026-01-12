@@ -1,4 +1,4 @@
-\documentclass[twocolumn,showpacs,preprintnumbers,amsmath,amssymb,prb]{revtex4-2}
+\documentclass[twocolumn,showpacs,preprintnumbers,amsmath,amssymb,prb,floatfix]{revtex4-2}
 
 \usepackage{graphicx}
 \usepackage{amsmath}
@@ -6,6 +6,7 @@
 \usepackage{bm}
 \usepackage{hyperref}
 \usepackage{xcolor}
+\usepackage{float}
 
 \begin{document}
 
@@ -81,7 +82,7 @@ The ``precursor gap'' is defined as $\Delta t = t_{phys} - t_{topo}$. A value $\
 
 The experimental protocol demonstrated complete methodological robustness. In the validation phase (V8), null controls maintained at constant temperature ($T=2.0$) exhibited a 0\% crystallization rate (0/10 trials), confirming that ordering observed in quench trials results from thermodynamic dynamics rather than numerical artifacts or excessive density. Under the cooling protocol, 100\% of trials (30/30) successfully transitioned to a stable crystalline phase, characterized by final hexatic order parameter $|\psi_6| \in [0.57, 0.65]$.
 
-\begin{figure}[htbp]
+\begin{figure}[H]
 \centering
 \includegraphics[width=\columnwidth]{figures/fig1_ensemble_dynamics.pdf}
 \caption{Ensemble dynamics of thermodynamic and topological observables. Time evolution of mean (solid lines) and standard deviation (shaded regions) across 30 independent crystallization trials ($N=144$, $\rho=0.7$). (a) Linear cooling protocol ($T=2.0 \to 0.1$). (b) Global hexatic order parameter $|\psi_6|$, showing delayed transition to crystalline state ($|\psi_6| > 0.5$). (c) Persistence Entropy $S_{H1}$ (computed with PBC), showing smoothed mean trend due to stochastic variability in individual transition times. (d) Temporal derivative $dS_{H1}/dt$. Note that the ``topological event'' is operationally defined as the onset of regime change detected by CUSUM, not as a global extremum.}
@@ -94,7 +95,7 @@ Comparative analysis of event times revealed statistical precedence of the topol
 
 The temporal lead magnitude (gap) presented a mean of 750.8 integration steps, albeit with considerable standard deviation ($\sigma \approx 1041.3$). This variability is significantly smaller and detection more consistent than when using simple derivative-based methods, which detected precursors in only 60\% of cases with greater dispersion ($\sigma \approx 1290$).
 
-\begin{figure}[htbp]
+\begin{figure}[H]
 \centering
 \includegraphics[width=\columnwidth]{figures/fig2_validation_gaps.pdf}
 \caption{Statistical validation and precursor analysis. (a) Final phase diagram (validated in V8 phase) comparing cooling trials (blue circles) vs. null controls at constant temperature $T=2.0$ (gray squares). Clear separation in $|\psi_6|$ vs. MSD space confirms the protocol does not induce spurious crystallization. (b) Distribution of temporal gaps ($\Delta t = t_{phys} - t_{topo}$) detected via CUSUM algorithm in V9. The distribution shows consistent positive asymmetry (median $>$ 0), indicating that topological regime change precedes metric consolidation in the majority of cases (73.3\%).}
@@ -105,7 +106,7 @@ The temporal lead magnitude (gap) presented a mean of 750.8 integration steps, a
 
 Individual trajectory analysis confirms the proposed mechanism: topological entropy $S_{H1}$ begins its systematic descent, departing from the liquid plateau, visibly before hexatic order $|\psi_6|$ initiates its abrupt rise. Cases where no precursor was detected (26.7\%) corresponded predominantly to rapid transitions where sampling temporal resolution did not permit distinguishing the decoupling, or where thermal fluctuations induced spontaneous metric nucleation.
 
-\begin{figure}[htbp]
+\begin{figure}[H]
 \centering
 \includegraphics[width=\columnwidth]{figures/fig3_mechanism.pdf}
 \caption{Mechanism of stochastic primacy (single trial example). Representative trajectory showing temporal decoupling. The blue line (Entropy $S_{H1}$) begins its descent and triggers the CUSUM detector (orange vertical line) before the order parameter $|\psi_6|$ (magenta line) crosses the persistent crystallization threshold (red vertical line). This delay illustrates the ``precursor gap,'' interpreted as the relaxation time required for informational instability to translate into robust spatial ordering.}
@@ -165,6 +166,8 @@ The simulation code, analysis scripts, and raw data supporting this study are op
     \item CUSUM detection algorithms
     \item Statistical analysis pipeline (V9)
 \end{itemize}
+
+\bigskip
 
 \begin{acknowledgments}
 The author acknowledges computational assistance from Claude (Anthropic) in simulation development and data analysis pipeline implementation.
