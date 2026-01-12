@@ -5,3 +5,15 @@ lj_tda_rust/target/
 __pycache__/
 *.pyc
 .ipynb_checkpoints/
+
+# LaTeX build artifacts
+*.aux
+*.log
+*.out
+*.toc
+*.bbl
+*.blg
+*.synctex.gz
+
+# Compiled PDFs (compile locally or on Overleaf)
+paper/*.pdf
