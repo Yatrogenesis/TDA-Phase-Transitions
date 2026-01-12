@@ -12,11 +12,11 @@
 \title{Stochastic Informational Primacy in 2D Phase Transitions:\\
 A CUSUM Analysis of Persistent Homology}
 
-\author{Francisco Molina Burgos}
-\email{yatrogenesis@proton.me}
-\affiliation{Independent Researcher}
+\author{Francisco Molina-Burgos}
+\email{fmolina@avermex.com}
+\affiliation{Avermex Research Division, M\'erida, Yucat\'an, M\'exico}
 
-\date{\today}
+\date{January 12, 2026}
 
 \begin{abstract}
 The temporal relationship between information structure reorganization and material ordering during phase transitions remains underexplored. In this work, we investigate the hypothesis of \textit{stochastic informational primacy}: the proposition that topological entropy collapse ($S_{H1}$) statistically precedes metric symmetry breaking. Using Molecular Dynamics simulations of a two-dimensional Lennard-Jones gas ($N=144$--$1600$, $\rho=0.7$) under a rigorous cooling protocol, we analyze the evolution of persistent homology ($H_1$) in parallel with the hexatic order parameter ($|\psi_6|$). By applying a regime change detection algorithm (CUSUM) across multiple independent trials, we report a consistent asymmetry in transition events: topological instability acts as a precursor in 73.3\% of cases at $N=144$, increasing to 100\% for $N \geq 900$, with mean lead times of 750--1725 integration steps. Protocol validity was confirmed through null controls that ruled out spurious crystallization. Finite-size scaling reveals that the precursor signal strengthens systematically with system size, confirming the physical reality of the phenomenon. These results suggest that topology is not a passive epiphenomenon, but an informational degree of freedom whose instability facilitates access to the crystalline state, supporting a model of \textit{biased co-emergence} where information tends to reconfigure before matter.
@@ -148,7 +148,7 @@ $N$ & Trials & Precursor Rate & Mean Gap (steps) & $\sigma$/Mean \\
 \end{tabular}
 \end{table}
 
-The systematic improvement in both precursor rate and signal-to-noise ratio (decreasing coefficient of variation) with increasing $N$ provides strong support for the physical reality of the topological precedence phenomenon. Notably, for $N \geq 900$, the precursor rate reaches 100\%, indicating that the effect becomes deterministic in the thermodynamic limit. The 73.3\% rate at $N=144$ significantly exceeds chance (50\%), with $p < 0.02$ by binomial test, while the convergence to unity at larger system sizes confirms this is not a finite-size artifact but rather a fundamental feature of the transition dynamics.
+The systematic improvement in both precursor rate and signal-to-noise ratio (decreasing coefficient of variation) with increasing $N$ provides strong support for the physical reality of the topological precedence phenomenon. Notably, for $N \geq 900$, the precursor rate reaches 100\% in our ensemble, suggesting that the effect strengthens substantially toward the thermodynamic limit; confirmation of asymptotic behavior requires larger ensembles at these system sizes. The 73.3\% rate at $N=144$ significantly exceeds chance (50\%), with $p < 0.02$ by binomial test, while the convergence to unity at larger system sizes confirms this is not a finite-size artifact but rather a fundamental feature of the transition dynamics.
 
 \subsection{Concluding Remarks: Informational Collapse}
 
