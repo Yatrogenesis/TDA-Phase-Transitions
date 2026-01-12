@@ -1,5 +1,7 @@
 # Stochastic Informational Primacy in 2D Phase Transitions
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18220298.svg)](https://doi.org/10.5281/zenodo.18220298)
+
 A TDA-based investigation of topological precursors in Lennard-Jones crystallization.
 
 ## Key Finding
@@ -130,20 +132,22 @@ The convergence to 100% precursor rate for N ≥ 900 suggests that in the thermo
 ## Citation
 
 ```bibtex
-@article{molina2025stochastic,
-  title={Stochastic Informational Primacy in 2D Phase Transitions:
-         A CUSUM Analysis of Persistent Homology},
-  author={Molina-Burgos, Francisco},
-  journal={Physical Review E},
-  year={2025},
-  note={Submitted}
+@software{molina_burgos_2026_18220298,
+  author       = {Molina-Burgos, Francisco},
+  title        = {Stochastic Informational Primacy in 2D Phase Transitions:
+                  A CUSUM Analysis of Persistent Homology},
+  year         = 2026,
+  publisher    = {Zenodo},
+  doi          = {10.5281/zenodo.18220298},
+  url          = {https://doi.org/10.5281/zenodo.18220298}
 }
 ```
 
 ## Author
 
-Francisco Molina-Burgos
-Independent Researcher
-January 2025
+**Francisco Molina-Burgos**
+Avermex Research Division
+Mérida, Yucatán, México
+fmolina@avermex.com
 
-φ > 0
+January 2026
