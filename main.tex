@@ -29,7 +29,7 @@ The temporal relationship between information structure reorganization and mater
 
 Classical phase transition theory describes the emergence of order through spontaneous symmetry breaking characterized by a local order parameter (e.g., density or magnetization). However, the role of the global information structure---the topology of configuration space---during the nucleation process remains an open question. Is topological reorganization merely a passive consequence of metric ordering, or does a temporal decoupling exist that suggests a facilitating role?
 
-Recently, Topological Data Analysis (TDA), and specifically Persistent Homology, has enabled quantification of data ``shape'' in complex systems beyond local correlations \cite{edelsbrunner2010,carlsson2009,hensel2021}. Metrics such as Persistence Entropy ($S_{pers}$) offer a robust measure of cycle diversity ($H_1$) accessible to the system, with established stability properties \cite{atienza2020}. Recent applications of persistent homology to phase transitions in statistical physics have demonstrated the utility of topological observables for detecting critical behavior \cite{sale2022}.
+Recently, Topological Data Analysis (TDA), and specifically Persistent Homology, has enabled quantification of data ``shape'' in complex systems beyond local correlations \cite{edelsbrunner2010,carlsson2009,leykam2023}. Metrics such as Persistence Entropy ($S_{pers}$) offer a robust measure of cycle diversity ($H_1$) accessible to the system, with established stability properties \cite{atienza2020}. Recent applications of persistent homology to phase transitions in statistical physics have demonstrated the utility of topological observables for detecting critical behavior \cite{sale2022}.
 
 In this work, we investigate the hypothesis of ``stochastic informational primacy'': the proposition that regime change in topological degrees of freedom ($S_{H1}$) tends to precede consolidation of metric order ($|\psi_6|$) in out-of-equilibrium systems. We analyze metric and topological observables in parallel under a single cooling (quench) protocol using Molecular Dynamics simulations of a two-dimensional Lennard-Jones gas ($N=144$, $\rho=0.7$).
 
@@ -39,7 +39,7 @@ Our methodology refines previous approaches through: (i) homology computation re
 
 \subsection{Molecular Dynamics Protocol}
 
-We simulated a two-dimensional system of $N=144$ particles interacting via a truncated and shifted Lennard-Jones (LJ) potential ($r_{cut}=2.5\sigma$), with periodic boundary conditions (PBC) \cite{chen2011}. The number density was fixed at $\rho=0.7$, selected to ensure a stable liquid state at high temperature while permitting spontaneous crystallization under cooling.
+We simulated a two-dimensional system of $N=144$ particles interacting via a truncated and shifted Lennard-Jones (LJ) potential ($r_{cut}=2.5\sigma$), with periodic boundary conditions (PBC) \cite{wierschem2011}. The number density was fixed at $\rho=0.7$, selected to ensure a stable liquid state at high temperature while permitting spontaneous crystallization under cooling.
 
 Integration of the equations of motion was performed using the Velocity Verlet algorithm with time step $\Delta t = 0.002$ (reduced LJ units). Temperature control was implemented via a soft velocity rescaling thermostat applied every 50 steps.
 
@@ -206,16 +206,16 @@ J.~M.~Kosterlitz and D.~J.~Thouless, J. Phys. C: Solid State Phys. \textbf{6}, 1
 B.~I.~Halperin and D.~R.~Nelson, Phys. Rev. Lett. \textbf{41}, 121 (1978). \href{https://doi.org/10.1103/PhysRevLett.41.121}{DOI:10.1103/PhysRevLett.41.121}
 
 % 2D LJ melting simulations
-\bibitem{chen2011}
-K.~Chen, T.~Kaplan, and M.~Mostoller, Phys. Rev. B \textbf{83}, 214108 (2011). \href{https://doi.org/10.1103/PhysRevB.83.214108}{DOI:10.1103/PhysRevB.83.214108}
+\bibitem{wierschem2011}
+K.~Wierschem and E.~Manousakis, Phys. Rev. B \textbf{83}, 214108 (2011). \href{https://doi.org/10.1103/PhysRevB.83.214108}{DOI:10.1103/PhysRevB.83.214108}
 
 % Change-point detection methodology
 \bibitem{aminikhanghahi2017}
 S.~Aminikhanghahi and D.~J.~Cook, Knowl. Inf. Syst. \textbf{51}, 339 (2017). \href{https://doi.org/10.1007/s10115-016-0987-z}{DOI:10.1007/s10115-016-0987-z}
 
 % TDA review - recent comprehensive (2023)
-\bibitem{hensel2021}
-F.~Hensel, M.~Moor, and B.~Rieck, Adv. Phys.: X \textbf{8}, 2202331 (2023). \href{https://doi.org/10.1080/23746149.2023.2202331}{DOI:10.1080/23746149.2023.2202331}
+\bibitem{leykam2023}
+D.~Leykam and D.~G.~Angelakis, Adv. Phys.: X \textbf{8}, 2202331 (2023). \href{https://doi.org/10.1080/23746149.2023.2202331}{DOI:10.1080/23746149.2023.2202331}
 
 % Ripser software
 \bibitem{tralie2018}
